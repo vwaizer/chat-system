@@ -17,11 +17,14 @@ const io = new Server(port, {
     origin: '*',
   }
 });
+const history=[]
 
 io.on("connection", (socket) => {
 	socket.on("username",(name)=>{
-		console.log(name);
-		io.emit("broad","server")
-	})
-	socket.emit("receive","test")
+		history.push(name)		
+		socket.emit("broad",[name])
+	});
+	
+	socket.emit("message","init message")
+
 });
